@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  For more information on how to configure your ASP.NET application, please visit
+  http://go.microsoft.com/fwlink/?LinkId=169433
+  -->
+<configuration>
+  <configSections>
+    <section name="dataConfiguration" type="Microsoft.Practices.EnterpriseLibrary.Data.Configuration.DatabaseSettings, Microsoft.Practices.EnterpriseLibrary.Data, Version=5.0.414.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" requirePermission="false" />
+    <section name="casClientConfig" type="DotNetCasClient.Configuration.CasClientConfiguration, ChicoDotNetCasClient" />
+  </configSections>
+  <dataConfiguration defaultDatabase="APPS" />
+  <connectionStrings configProtectionProvider="RsaProtectedConfigurationProvider">
+    <EncryptedData Type="http://www.w3.org/2001/04/xmlenc#Element" xmlns="http://www.w3.org/2001/04/xmlenc#">
+      <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#tripledes-cbc" />
+      <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+        <EncryptedKey xmlns="http://www.w3.org/2001/04/xmlenc#">
+          <EncryptionMethod Algorithm="http://www.w3.org/2001/04/xmlenc#rsa-1_5" />
+          <KeyInfo xmlns="http://www.w3.org/2000/09/xmldsig#">
+            <KeyName>Rsa Key</KeyName>
+          </KeyInfo>
+          <CipherData>
+            <CipherValue>YDR9dvn+wZRKXPKGU6v8z+NHYpuS313726FEDhcQTSGT1S0wI8evNq19scRz6ODA/gnL940ACmWgPWlCSdGtG4KvgikhWSbhXTlkvsEQu0bDwGjaaZMGGkCdL/WFKU0atuJXzzSRHtbU6myjv2Ahc6WO/WvRJMSgLTCFunyyFQU=</CipherValue>
+          </CipherData>
+        </EncryptedKey>
+      </KeyInfo>
+      <CipherData>
+        <CipherValue>DqPz7eLzaP7t78BdlicW6kOGjyRYiJNBqBuAA+lzwh9k01aIpgT2tKhjxq8Er6FEEswTIbOwpemdscJuD5ht7BMP7LZtoH0h0m2s8FbV+b6S9dszOCuA4nRuDFe6tUptSMYu/Nwv5mj+mfyfmjnrxjSD+tSgmyr+kaQqZGu2WIO27mM7V8U/nyNmyqxPcIFIsRZCXG+4aQQwMZ5+OTSZVZLlumTvXZcYxM4CNO+vGnSi/N5V6m+Fke46AyYqeTdOqJcRlYbuLguDIxZXNrgadAflzS+RkXXhQqcHkuc5BJLnu6Ec9eTzcf+L5ugX6ONozvwKlCOrq8vB9Jis3GKIFmJLHXhtvAoqYjbI7VVmk4Q1xzHCZJYBQqq16imiUaL1q/YhMV6HS3XQSH1ZVND9YZSGfY3zcGbkPaXXZ39EKZ0Xf/I6/bXRkS0uzz3G1LgCsSC+uPHPuHOJGD5e2Dk2ZJK8StH1O6foX3jNcgmMg25870TuVcAeSjBxldXs/LlVcri0avKglDc=</CipherValue>
+      </CipherData>
+    </EncryptedData>
+  </connectionStrings>
+  <appSettings>
+    <add key="ClientValidationEnabled" value="true" />
+    <add key="UnobtrusiveJavaScriptEnabled" value="true" />
+  </appSettings>
+  <configProtectedData defaultProvider="RsaProtectedConfigurationProvider">
+    <providers>
+      <remove name="RsaProtectedConfigurationProvider" />
+      <add name="RsaProtectedConfigurationProvider" type="System.Configuration.RsaProtectedConfigurationProvider,System.Configuration, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" keyContainerName="ems-key" useMachineContainer="true" cspProviderName="" useOAEP="false" />
+    </providers>
+  </configProtectedData>
+  <system.web>
+    <httpRuntime requestValidationMode="2.0"/>
+    <compilation debug="true" targetFramework="4.0" />
+      <pages validateRequest="false">
+      <namespaces>
+        <add namespace="System.Web.Helpers" />
+        <add namespace="System.Web.Mvc" />
+        <add namespace="System.Web.Mvc.Ajax" />
+        <add namespace="System.Web.Mvc.Html" />
+        <add namespace="System.Web.Routing" />
+        <add namespace="System.Web.WebPages" />
+        <add namespace="System.Web.Optimization" />
+      </namespaces>
+    </pages>
+    <httpModules>
+      <add name="DotNetCasClient" type="DotNetCasClient.CasAuthenticationModule,DotNetCasClient" />
+    </httpModules>
+    <authentication mode="Forms">
+      <forms loginUrl="https://cas.csuchico.edu/cas/login" cookieless="UseCookies" requireSSL="false" />
+    </authentication>
+    
+  </system.web>
+  <system.webServer>
+    <validation validateIntegratedModeConfiguration="false" />
+    <handlers>
+      <remove name="ExtensionlessUrlHandler-ISAPI-4.0_32bit" />
+      <remove name="ExtensionlessUrlHandler-ISAPI-4.0_64bit" />
+      <remove name="ExtensionlessUrlHandler-Integrated-4.0" />
+      <add name="ExtensionlessUrlHandler-ISAPI-4.0_32bit" path="*." verb="GET,HEAD,POST,DEBUG,PUT,DELETE,PATCH,OPTIONS" modules="IsapiModule" scriptProcessor="%windir%\Microsoft.NET\Framework\v4.0.30319\aspnet_isapi.dll" preCondition="classicMode,runtimeVersionv4.0,bitness32" responseBufferLimit="0" />
+      <add name="ExtensionlessUrlHandler-ISAPI-4.0_64bit" path="*." verb="GET,HEAD,POST,DEBUG,PUT,DELETE,PATCH,OPTIONS" modules="IsapiModule" scriptProcessor="%windir%\Microsoft.NET\Framework64\v4.0.30319\aspnet_isapi.dll" preCondition="classicMode,runtimeVersionv4.0,bitness64" responseBufferLimit="0" />
+      <add name="ExtensionlessUrlHandler-Integrated-4.0" path="*." verb="GET,HEAD,POST,DEBUG,PUT,DELETE,PATCH,OPTIONS" type="System.Web.Handlers.TransferRequestHandler" preCondition="integratedMode,runtimeVersionv4.0" />
+    </handlers>
+    <modules runAllManagedModulesForAllRequests="true">
+      <remove name="DotNetCasClient" />
+      <add name="DotNetCasClient" type="DotNetCasClient.CasAuthenticationModule,ChicoDotNetCasClient" />
+    </modules>
+  </system.webServer>
+  <casClientConfig casServerLoginUrl="https://cas.csuchico.edu/cas/login" casServerUrlPrefix="https://cas.csuchico.edu/cas/" notAuthorizedUrl="~/Home/NotAuthorized" cookiesRequiredUrl="~/CookiesRequired" redirectAfterValidation="true" gateway="false" renew="false" singleSignOut="true" ticketTimeTolerance="10000" ticketValidatorName="Cas20" proxyTicketManager="CacheProxyTicketManager" serviceTicketManager="CacheServiceTicketManager" gatewayStatusCookieName="CasGatewayStatus" />
+  <runtime>
+    <assemblyBinding xmlns="urn:schemas-microsoft-com:asm.v1">
+      <dependentAssembly>
+        <assemblyIdentity name="WebGrease" publicKeyToken="31bf3856ad364e35" culture="neutral" />
+        <bindingRedirect oldVersion="0.0.0.0-1.5.2.14234" newVersion="1.5.2.14234" />
+      </dependentAssembly>
+    </assemblyBinding>
+  </runtime>
+
+  <!-- Roles --><!--
+  <Roles>
+    <Controller name ="Home">
+      <Action name="ContactUs"></Action>
+    </Controller>"
+  </Roles>-->
+  <system.web>
+    
+    <roleManager enabled="true" defaultProvider="CMRoleProvider">
+      <providers>
+        <clear/>
+        <add name="CMRoleProvider" type="Commencement_Mvc.CMRoleProvider, Commencement_Mvc"
+             applicationName="MyApp"
+               attributeMapUsername="sAMAccountName"
+               shouldRecurse="true"
+               AdditiveGroupMode="false"/>
+      </providers>
+    </roleManager>
+  </system.web>
+  
+</configuration>
