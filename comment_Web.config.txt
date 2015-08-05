@@ -1,0 +1,14 @@
+-- Web.config
+
+ <system.web>
+    <roleManager enabled="true" defaultProvider="CMRoleProvider">
+      <providers>
+        <clear/>
+        <add name="CMRoleProvider" type="namespace.myprovider, myprovider"
+             applicationName="MyApp"
+               attributeMapUsername="sAMAccountName"
+               shouldRecurse="true"
+               AdditiveGroupMode="false"/>
+      </providers>
+    </roleManager>
+  </system.web>
